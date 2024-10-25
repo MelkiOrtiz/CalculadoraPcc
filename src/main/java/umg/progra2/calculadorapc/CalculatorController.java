@@ -1,10 +1,15 @@
 package umg.progra2.calculadorapc;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.fxml.Initializable;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import net.objecthunter.exp4j.Expression;
 import net.objecthunter.exp4j.ExpressionBuilder;
 import org.apache.commons.math3.analysis.UnivariateFunction;
@@ -24,6 +29,7 @@ import umg.progra2.Metodos.utilidades.GraficadorCascarones;
 import org.matheclipse.core.eval.ExprEvaluator;
 import umg.progra2.Metodos.utilidades.GraficadorFunciones;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import java.net.URL;
@@ -121,7 +127,8 @@ public class CalculatorController implements Initializable {
                 handleSquareRoot();
                 break;
             case "!":
-                handleFactorial();
+                //handleFactorial();
+                abrirEasterEgg();
                 break;
             case "(":
                 handleOpenParenthesis();
@@ -149,6 +156,9 @@ public class CalculatorController implements Initializable {
 //                calcularVolumenCascarones();
 //                calcularCentroides();
 //                calcularValorMedio();
+                break;
+            case "Cre":
+                abrirCreditos();
                 break;
         }
     }
@@ -950,5 +960,40 @@ public class CalculatorController implements Initializable {
     private void handlemultiplicacion() {
         display.setText(display.getText()+"*");
         start = true;
+    }
+
+    @FXML
+    private void abrirEasterEgg() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("EasterEgg.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("¡Easter Egg!");
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void abrirCreditos() {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Creditos.fxml"));
+            Parent root = fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setTitle("Créditos");
+            Scene scene = new Scene(root);
+            scene.setFill(javafx.scene.paint.Color.BLACK);
+            stage.setScene(scene);
+            stage.setMinWidth(800);
+            stage.setMinHeight(600);
+            stage.showAndWait();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
